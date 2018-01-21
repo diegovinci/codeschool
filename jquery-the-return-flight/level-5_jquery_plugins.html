@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jQuery Plugins</title>
+</head>
+<body>
+
+  <!-- 5.2 Events for Plugins -->
+  <li class="vacation" data-price="399">
+    <h3>Hawaiian Vacation</h3>
+    <button>Show Price</button>
+  </li>
+  <li class="vacation" data-price="749">
+    <h3>European Vacation</h3>
+    <button>Show Price</button>
+  </li>
+  <a href="#" class="show-prices">Show All Prices</a>
+
+  <!-- 5.* -->
+  <ul>
+    <li class="tour" data-loc="london" data-temp="48°">
+      London, UK
+      <button>More Info</button>
+      <div class="results"></div>
+    </li>
+
+    <li class="tour" data-loc="paris1" data-temp="55°">
+      Paris, France
+      <button>More Info</button>
+      <div class="results"></div>
+    </li>
+
+    <li class="tour" data-loc="newyork1" data-temp="62°">
+      New York, NY, USA
+      <button>More Info</button>
+      <div class="results"></div>
+    </li>
+  </ul>
+
+  <!-- 5.7 jQuery Plugin -->
+  <li class="vacation" data-price="399">
+    <h3>Hawaiian Vacation</h3>
+    <button>Show Price</button>                           <!-- Will add a <p> w/price -->
+    <a href="#" class="remove-vacation">Not Interested</a> <!-- Will hide the vacation -->
+  </li>
+  <a href="#" class="show-prices">Show All Prices</a>
+
+  <!-- 5.8 Declaring a jQuery plugin -->
+  <a href="#" class="show-photos">Show All Photos</a>
+  <ul id="tourprices">
+    <li class="tour" data-loc="london,uk">
+      London, UK
+      <ul class="photos">
+        <li><img src="/assets/photos/london.jpg"></li>
+        <li><img src="/assets/photos/london.jpg"></li>
+        <li><img src="/assets/photos/london.jpg"></li>
+      </ul>
+      <a href="#" class="see-photos">See Photos</a>
+      <a href="#" class="hide-tour">Hide Tour</a>
+    </li>
+
+    <li class="tour" data-loc="paris,france">
+      Paris, France
+      <ul class="photos">
+        <li><img src="/assets/photos/paris1.jpg"></li>
+        <li><img src="/assets/photos/paris1.jpg"></li>
+        <li><img src="/assets/photos/paris1.jpg"></li>
+      </ul>
+      <a href="#" class="see-photos">See Photos</a>
+      <a href="#" class="hide-tour">Hide Tour</a>
+    </li>
+
+    <li class="tour" data-loc="New York, NY, USA">
+      New York, NY, USA
+      <ul class="photos">
+        <li><img src="/assets/photos/newyork1.jpg"></li>
+        <li><img src="/assets/photos/newyork1.jpg"></li>
+        <li><img src="/assets/photos/newyork1.jpg"></li>
+      </ul>
+      <a href="#" class="see-photos">See Photos</a>
+      <a href="#" class="hide-tour">Hide Tour</a>
+    </li>
+  </ul>
+
+
+<script type="text/javascript" 
+        src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+</script>
+
+<script>
+
+// -----------------------------------------------------------------------------
+// =EXERCISES=
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// 5.2 Events for Plugins
+// -----------------------------------------------------------------------------
+
+// Managing Events
+
+function picture { console.log('Show Plane'); }
+function status  { console.log('In Service'); }
+// Both functions will be run when the button is clicked
+$(document).ready(function() {
+  $('button').on('click', picture);
+  $('button').on('click', status);
+  // To turn of the callbacks
+  $('button').off('click');
+});
+
+// To turn off specifically one of the handlers, we use namespacing:
+$(document).ready(function() {
+  $('button').on('click.image', picture);
+  $('button').on('click.details', status);
+  // To turn of the callbacks
+  $('button').off('click.image');
+  // To remove all event handlers that end with .image:
+  $('button').off('.image');
+
+  // Triggering Events
+  $('button').trigger('click');
+
+  // Triggering Individual Events
+  $('button').trigger('click.image');
+});
+
+
+// 1. Define the handler on the Show Price button
+$('.vacation').on('click.price', 'button', showPrice); // Namespacing the click event >|
+//               >=============<------------------------------------------------------<
+
+// 2. Define showPrice()
+var showPrice = function() {
+  var vacation = $(this).closest('.vacation');
+  var price = vacation.data('price');
+  var details = $('<p>Book 3 days for ' + (3 * price) + '</p>');
+  vacation.append(details);
+}
+
+
+$(<dom element).on("<event>.<namespace>", <method>) // <-- Typical Event Handler
+
+
+// The <event> can be custom (instead of click, hover, mouseenter, etc)
+$('.vacation').on('show.price', showPrice);
+
+// To trigger this event on al vacations
+$('.vacation').trigger('show.price');
+
+// To trigger this event on a single vacation:
+$('.vacation:last').trigger('show.price');
+
+
+// To use the same function for all Events
+var showPrice = function() {
+  var vacation = $(this).closest('.vacation');
+  var price = vacation.data('price');
+  var details = $('<p>Book 3 days for ' + (3 * price) + '</p>');
+  vacation.append(details);
+}
+
+$('.vacation').on('click.price', 'button', showPrice);
+$('.vacation').on('show.price', showPrice);
+
+$('.show-prices').on('click', function(event) {
+  event.preventDefault();
+  $('.vacation').trigger('show.price');
+});
+
+
+// -----------------------------------------------------------------------------
+// 5.3 Removing Event Handlers
+// -----------------------------------------------------------------------------
+/*
+We're prototyping a page right now that will fetch some content from around the 
+web and display it so that our travelers can find out about the weather and see 
+more pictures for destinations they are interested in. In chapter 6 we'll make 
+this content dynamic, but for now we'll hardcode it.
+
+The problem is the button can be clicked any number of times and it'll always 
+append the weather. Update this to instead remove the event handler when it's 
+clicked. Note: You can access the clicked button using $(this).
+
+$(document).ready(function(){
+  // Get Weather
+  $('button').on('click', function() {
+    var results = $(this).closest('li').find('.results');
+    results.append('<p>Weather: 74&deg;</p>');
+  });
+});
+*/
+$(document).ready(function(){
+  // Get Weather
+  $('button').on('click', function() {
+    var results = $(this).closest('li').find('.results');
+    results.append('<p>Weather: 74&deg;</p>');
+    $(this).off('click'); // <--
+  });
+});
+
+
+// -----------------------------------------------------------------------------
+// 5.4 Namespacing Event Handlers
+// -----------------------------------------------------------------------------
+/*
+Turns out another coworker added some functionality to this same button to show 
+photos. We want to keep both button event handlers working separate from each 
+other, but right now our weather handler will remove the event handler for photos 
+when clicked!
+
+Namespace the weather event handler to the weather namespace and update how it is 
+removed to prevent this.
+
+$(document).ready(function(){
+  // Get Weather
+  $('button').on('click', function() {
+    var results = $(this).closest('li').find('.results');
+    results.append('<p>Weather: 74&deg;</p>');
+    $(this).off('click');
+  });
+  
+   // Show Photos
+  $('button').on('click.photos', function() {
+    var tour = $(this).closest('li');
+    var results = tour.find('.results');
+    results.append('<p><img src="/assets/photos/'+tour.data('loc')+'.jpg" /></p>');
+    $(this).off('click.photos');
+  });
+});
+*/
+$(document).ready(function(){
+  // Get Weather
+  $('button').on('click.weather', function() {
+    var results = $(this).closest('li').find('.results');
+    results.append('<p>Weather: 74&deg;</p>');
+    $(this).off('click.weather');
+  });
+  
+   // Show Photos
+  $('button').on('click.photos', function() {
+    var tour = $(this).closest('li');
+    var results = tour.find('.results');
+    results.append('<p><img src="/assets/photos/'+tour.data('loc')+'.jpg" /></p>');
+    $(this).off('click.photos');
+  });
+});
+
+
+// -----------------------------------------------------------------------------
+// 5.5 Trigger
+// -----------------------------------------------------------------------------
+/*
+When testing out our code, we keep having to refresh the page and click on the 
+button. Let's make things a little easier by triggering a click on the button 
+when the page loads.
+
+$(document).ready(function(){
+  // Get Weather
+  $('button').on('click.weather', function() {
+    var results = $(this).closest('li').find('.results');
+    results.append('<p>Weather: 74&deg;</p>');
+    $(this).off('click.weather');
+  });
+  
+   // Show Photos
+  $('button').on('click.photos', function() {
+    var tour = $(this).closest('li');
+    var results = tour.find('.results');
+    results.append('<p><img src="/assets/photos/'+tour.data('loc')+'.jpg" /></p>');
+    $(this).off('click.photos');
+  });
+});
+
+*/
+$(document).ready(function(){
+  // Get Weather
+  $('button').on('click.weather', function() {
+    var results = $(this).closest('li').find('.results');
+    results.append('<p>Weather: 74&deg;</p>');
+    $(this).off('click.weather');
+  });
+
+   // Show Photos
+  $('button').on('click.photos', function() {
+    var tour = $(this).closest('li');
+    var results = tour.find('.results');
+    results.append('<p><img src="/assets/photos/'+tour.data('loc')+'.jpg" /></p>');
+    $(this).off('click.photos');
+  });
+
+  $('button').trigger('click'); // <--
+});
+
+
+// -----------------------------------------------------------------------------
+// 5.6 Custom Events
+// -----------------------------------------------------------------------------
+/*
+What if we wanted to run these in a specific order? By default jQuery will run 
+them in the order they are declared, but we could also control the order by 
+triggering one event from the other.
+
+Change the click.weather event to a new custom event, no longer listening for 
+click. Trigger this event from within the click.photos event handler.
+
+$(document).ready(function(){
+  // Get Weather
+  $('button').on('click.weather', function() {
+    var results = $(this).closest('li').find('.results');
+    results.append('<p>Weather: 74&deg;</p>');
+    $(this).off('click.weather');
+  });
+  
+  // Show Photos
+  $('button').on('click.photos', function() {
+    var tour = $(this).closest('li');
+    var results = tour.find('.results');
+    results.append('<p><img src="/assets/photos/'+tour.data('loc')+'.jpg" /></p>');
+    $(this).off('click.photos');
+  });
+});
+*/
+$(document).ready(function(){
+  // Get Weather
+  $('button').on('show.weather', function() {
+    var results = $(this).closest('li').find('.results');
+    results.append('<p>Weather: 74&deg;</p>');
+    $(this).off('show.weather');
+  });
+  
+  // Show Photos
+  $('button').on('click.photos', function() {
+    $(this).trigger('show.weather');
+    var tour = $(this).closest('li');
+    var results = tour.find('.results');
+    results.append('<p><img src="/assets/photos/'+tour.data('loc')+'.jpg" /></p>');
+    $(this).off('click.photos');
+  });
+});
+
+
+// -----------------------------------------------------------------------------
+// 5.7 jQuery Plugins
+// -----------------------------------------------------------------------------
+
+// Setting up a Plugin
+// -------------------
+// .fn:      makes this method available to all jQuery Objects
+// priceify: will be the name of the plugin
+$.fn.priceify = function() { 
+  console.log('priceify called');
+  console.log(this); // <-- Will be the jQuery object the plugin was called on
+}
+
+$('.vacation').priceify(); // <-- We can priceify all vacations at once
+
+
+// Adding a click handler to append price details
+// ----------------------------------------------
+
+// This will affect all .vacation elements at the same time:
+$.fn.priceify = function() {
+  var vacation = this; // <-- 'this' will be $('.vacation')
+  vacation.on('click.priceify', 'button', function() {
+    var price = vacation.data('price');
+    var details = $('<p>Book 3 days for $' + (3 * price) + '</p>');
+    $(this).hide();
+    vacation.append(details); // <-- here we are appending in multiple places (all .vacation)
+  });
+};
+
+$(document).ready(function() {
+  $('.vacation').priceify();
+});
+
+// -------------------
+// each(function() {})
+// -------------------
+
+// Adding iteration to affect each .vacation item separately
+// --------------------------------------------------------- 
+$.fn.priceify = function() {
+  this.each(function() { // Loop over each .vacation element setting each one to 'this'
+    var vacation = $(this);
+    vacation.on('click', 'button', function() {
+      var price = vacation.data(price);
+      var details =  $('<p>Book 3 days for $' + (3 * price) + '</p>');
+      $(this).hide();
+      vacation.append(details);
+    });
+  });
+};
+
+// -----------------------
+// Plugins with Parameters
+// -----------------------
+
+// Plugin use with Options
+$('.vacation').priceify({ days: 5 });
+
+$.fn.priceify = function(options) {
+  ...
+  var price = vacation.data('price');
+  var details = $('<p>Book ' + options.days + ' days for $' + (options.day * price) + '</p>');
+}
+
+// -----------------------------------
+// Plugin use with Optional Parameters
+// -----------------------------------
+
+// Using $.extend
+// --------------
+//                --------------------------------------
+// Utility Method $.extend(target[, object1][, objectN]) will combine all objects
+//                --------------------------------------
+
+$.extend({ days: 3 }, { price: 5 }) --> { days: 3, price: 5 } 
+
+$.extend({ days: 3 }, {})           --> { days: 3 } 
+
+$.extend({ days: 3 }, { days:  5 }) --> { days: 5 } // <-- That's how we set a
+//                                                         default value
+
+// Using $.extend in our plugin
+// ----------------------------
+$.fn.priceify = function(options) {
+  this.each(function() {
+    var settings = $.extend({
+      days: 3, // <-- 3 days default
+      vacation: this,
+      price: $(this).data('price')
+    }, options);
+    settings.vacation.on('click.pricefy', 'button', function() {
+      var details = $('<p>Book ' + settings.days + ' days for $' + 
+                     (settings.days * settings.price) + '</p>');
+      $(this).hide();
+      settings.vacation.append(details);
+    });
+  });
+};
+
+// Calling a Plugin from Outside
+// -----------------------------
+$.fn.priceify = function(options) {
+  this.each(function () {
+    var settings = $.extend({
+      days: 3, 
+      vacation: this,
+      price: $(this).data('price')
+    }, options);
+    var show = function() {
+      var details = $('<p>Book ' + settings.days + ' days for $' + 
+                     (settings.days * settings.price) + '</p>');
+      $(this).hide();
+      settings.vacation.append(details);
+    };
+    settings.vacation.on('click.priceify', 'button', show);
+    settings.vacation.on('show.priceify',  'button', show); // Custom event
+    //                   ---------------                    <<-------------
+  });
+};
+
+$('.show-prices').on('click', function(event) {
+  event.preventDefault();
+  $('.vacation').trigger('show.priceify'); // <-- Trigger an event on the vacation
+                                           //     that the plugin watches for
+});
+
+
+// Remove vacation
+// ---------------
+$.fn.priceify = function(options) {
+  ...
+  var remove = function() {
+    settings.vacation.hide().off('.priceify'); // Removes all *.priceify event handlers
+  };
+  settings.vacation.on('click.priceify', '.remove-vacation', remove);
+}
+
+
+// -----------------------------------------------------------------------------
+// 5.8 Declaring a jQuery plugin
+// -----------------------------------------------------------------------------
+/*
+Let's revisit our Vacation Photos page from Try jQuery. Previously we wrote some 
+code to show the photos when each link was clicked. We'll see what we can do to 
+refactor this functionality into a jQuery Plugin.
+
+To start off, create a new jQuery plugin named photofy. Call it within your event 
+handler for all .tour elements. Make your plugin call console.log passing in this 
+-- the elements that we are attempting to photofy.
+
+$(document).ready(function() {
+
+});
+
+*/
+
+$.fn.photofy = function() {
+  console.log(this);
+}
+
+$(document).ready(function() {
+  $('.tour').photofy();
+});
+
+
+// -----------------------------------------------------------------------------
+// 5.9 Iteration with each
+// -----------------------------------------------------------------------------
+/*
+Looks like the page loads without any errors, but it doesn't yet do anything. 
+Within your plugin, loop through each object passed in and run console.log(this) 
+within the loop.
+
+$.fn.photofy = function() {
+}
+
+$(document).ready(function() {
+  $('.tour').photofy();
+});
+*/
+$.fn.photofy = function() {
+  this.each(function () {
+    console.log(this);
+  });
+};
+
+$(document).ready(function() {
+  $('.tour').photofy();
+});
+
+
+// -----------------------------------------------------------------------------
+// 5.10 Plugin Event
+// -----------------------------------------------------------------------------
+/*
+For each tour that we are using our "photofy" plugin on, we'll want to do a few 
+things.
+
+For starters create an event handler using on, that targets the .see-photos link 
+within each .tour. When this is clicked, run a function that will add a class of 
+is-showing-photofy to the tour. You'll probably want to save a reference to this 
+outside of your event handler, and use that in the click event handler.
+
+$.fn.photofy = function() {
+  this.each(function() {
+    console.log(this);
+  });
+}
+
+$(document).ready(function() {
+  $('.tour').photofy();
+});
+*/
+
+$.fn.photofy = function() {
+  this.each(function() {
+    console.log(this);
+    var tour = $(this);
+    tour.on('click.photofy', '.see-photos', function(event) {
+      event.preventDefault();
+      tour.addClass('is-showing-photofy');
+    })
+  });
+}
+
+$(document).ready(function() {
+  $('.tour').photofy();
+});
+
+
+// -----------------------------------------------------------------------------
+// 5.11 Using $.extend()
+// -----------------------------------------------------------------------------
+/*
+We'll need to update our plugin to accept and use an options JavaScript Object 
+that we're passing in. Looks like someone started refactoring the show method 
+already to use a variable called settings, which uses a count and a tour key 
+in settings.
+
+Create a variable, settings, that defaults the count to 3, and sets tour to the 
+current tour element -- $(this). Then, update the call to photofy on load to pass 
+in a JavaScript object with a count of 1.
+
+$.fn.photofy = function(options) {
+  this.each(function() {
+    var show = function(e) {
+       e.preventDefault();
+       settings.tour
+               .addClass('is-showing-photofy')
+               .find('.photos')
+               .find('li:gt('+(settings.count-1)+')').hide();
+     }
+     
+     settings.tour.on('click.photofy', '.see-photos', show);
+  });
+}
+
+$(document).ready(function() {
+  $('.tour').photofy({ count: 1});
+});
+
+*/
+$.fn.photofy = function(options) {
+  this.each(function() {
+    var settings = $.extend({
+      count: 3,
+      tour: $(this)
+    }, options);
+    var show = function(event) {
+       event.preventDefault();
+       settings.tour
+               .addClass('is-showing-photofy')
+               .find('.photos')
+               .find('li:gt(' + (settings.count-1) + ')').hide();
+     }
+     settings.tour.on('click.photofy', '.see-photos', show);
+  });
+}
+
+$(document).ready(function() {
+  $('.tour').photofy({ count: 1 });
+});
+
+
+// -----------------------------------------------------------------------------
+// 5.12 External Triggers
+// -----------------------------------------------------------------------------
+/*
+We've added an event handler to the "Show all photos" link above the tours. Within 
+this event handler, you'll need to trigger an event, show.photofy, on all tours. 
+Update the plugin to listen for this event and call the show function when it 
+receives it.
+
+$.fn.photofy = function(options) {
+  this.each(function() {
+    var show = function(e) {
+      e.preventDefault();
+      settings.tour
+              .addClass('is-showing-photofy')
+              .find('.photos')
+              .find('li:gt('+(settings.count-1)+')')
+              .hide();
+    }
+    var settings = $.extend({
+      count: 3,
+      tour: $(this)
+    }, options);
+    settings.tour.on('click.photofy', '.see-photos', show);
+  });
+}
+
+$(document).ready(function() {
+  $('.tour').photofy({ count: 1});
+  
+  $('.show-photos').on('click', function(e) {
+    e.preventDefault();
+    // Trigger `show.photofy`
+  });
+});
+*/
+$.fn.photofy = function(options) {
+  this.each(function() {
+    var show = function(e) {
+      e.preventDefault();
+      settings.tour
+              .addClass('is-showing-photofy')
+              .find('.photos')
+              .find('li:gt('+(settings.photos-1)+')')
+              .hide();
+    };
+    var settings = $.extend({
+      count: 3,
+      tour: $(this)
+    }, options);
+    settings.tour.on('click.photofy', '.see-photos', show);
+    settings.tour.on('show.photofy', show);
+  });
+}
+
+$(document).ready(function() {
+  $('.tour').photofy({ count: 1});
+
+  $('.show-photos').on('click', function(e) {
+    e.preventDefault();
+    $('.tour').trigger('show.photofy');
+  });
+});
+
+
+// -----------------------------------------------------------------------------
+// 5.13 Internal Triggers
+// -----------------------------------------------------------------------------
+/*
+When we're viewing photos, there's a link that comes up to 'Hide Tour'. Within 
+the plugin, watch for click on this link, .hide-tour. When it is clicked, call 
+fadeOut() on the tour and remove all events namespaces to photofy.
+
+$.fn.photofy = function(options) {
+  this.each(function() {
+    var show = function(e) {
+      e.preventDefault();
+      settings.tour
+              .addClass('is-showing-photofy')
+              .find('.photos')
+              .find('li:gt('+(settings.count-1)+')')
+              .hide();
+    }
+    var settings = $.extend({
+      count: 3,
+      tour: $(this)
+    }, options);
+    settings.tour.on('click.photofy', '.see-photos', show);
+    settings.tour.on('show.photofy', show);
+  });
+}
+
+$(document).ready(function() {
+  $('.tour').photofy({ count: 1});
+  
+  $('.show-photos').on('click', function(e) {
+    e.preventDefault();
+    $('.tour').trigger('show.photofy');
+  });
+});
+*/
+
+$.fn.photofy = function(options) {
+  this.each(function() {
+    var show = function(e) {
+      e.preventDefault();
+      settings.tour
+              .addClass('is-showing-photofy')
+              .find('.photos')
+              .find('li:gt('+(settings.count-1)+')')
+              .hide();
+    }
+    var settings = $.extend({
+      count: 3,
+      tour: $(this)
+    }, options);
+    settings.tour.on('click.photofy', '.see-photos', show);
+    settings.tour.on('show.photofy', show);
+    var remove = function(event) {
+      event.preventDefault();
+      settings.tour.fadeOut().off('.photofy');
+    }
+    settings.tour.on('click.photofy', '.hide-tour', remove);
+  });
+}
+
+$(document).ready(function() {
+  $('.tour').photofy({ count: 1});
+  
+  $('.show-photos').on('click', function(e) {
+    e.preventDefault();
+    $('.tour').trigger('show.photofy');
+  });
+});
+
+
+</script>
+</body>
+</html>

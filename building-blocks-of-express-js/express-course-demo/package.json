@@ -1,0 +1,15 @@
+{
+  "name": "ExpressCourseDemo",
+  "version": "0.0.0",
+  "description": "This demo app for the Express course",
+  "author": "Carlos Souza <carloshrosouza@gmail.com.com>",
+  "dependencies": {
+    "body-parser": "^1.8.1",
+    "debug": "^0.8.1",
+    "express": "^4.9.5",
+    "lodash": "^2.4.1"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
