@@ -1,17 +1,13 @@
-#jQuery: The Return Flight
-##[Code School](https://www.codeschool.com/)
 
-by [Gregg Pollack](https://twitter.com/greggpollack)
+# jQuery: The Return Flight
 
-
-## Course Slides
-
-Content is [here](http://courseware.codeschool.com.s3.amazonaws.com/jquery-part2/jquery-part2.pdf)
+[Code School](https://www.codeschool.com/) - jQuery: The Return Flight by [Gregg Pollack](https://twitter.com/greggpollack). 
+You can get the slides [here](http://courseware.codeschool.com.s3.amazonaws.com/jquery-part2/jquery-part2.pdf).
 
 
-###1. Ajax Basics
+### 1. Ajax Basics
 
-**Ajax Basics**
+#### Ajax Basics
 
 - Ajax Basics
 - Ajax
@@ -19,7 +15,7 @@ Content is [here](http://courseware.codeschool.com.s3.amazonaws.com/jquery-part2
 - $.get Shorthand
 - Ajax Data
 
-**Ajax Options**
+#### Ajax Options
 
 - Ajax Options
 - Ajax with Errors
@@ -27,15 +23,15 @@ Content is [here](http://courseware.codeschool.com.s3.amazonaws.com/jquery-part2
 - More Ajax Callbacks
 - Event Delegation
 
-###2. JavaScript and jQuery
+### 2. JavaScript and jQuery
 
-**JavaScript Objects**
+#### JavaScript Objects
 
 - JavaScript Objects
 - Refactor to Objects
 - Event Handler Refactor
 
-**JavaScript Functions**
+#### JavaScript Functions
 
 - JavaScript Functions
 - Creating a Function
@@ -45,33 +41,33 @@ Content is [here](http://courseware.codeschool.com.s3.amazonaws.com/jquery-part2
 - fetchPhotos Refactor
 - Instances of a Function
 
-###3. Ajax with Forms
+### 3. Ajax with Forms
 
-**Ajax with Forms**
+#### Ajax with Forms
 
 - Ajax with Forms
 - Form Submit Event
 - $.ajax with POST
 - Success Callback
 
-**Ajax with JSON**
+#### Ajax with JSON
 
 - Ajax with JSON
 - The JSON Switch
 - Don't Repeat Yourself
 
-###4. Utility Methods
+### 4. Utility Methods
 
-**Utility Functions**
+#### Utility Functions
 
 - Utility Functions
 - Using $.each()
 - Using $.map()
 - detach()
 
-###5. jQuery Plugins
+### 5. jQuery Plugins
 
-**Advanced Event**
+#### Advanced Event
 
 - Events for Plugins
 - Removing Event Handlers
@@ -79,7 +75,7 @@ Content is [here](http://courseware.codeschool.com.s3.amazonaws.com/jquery-part2
 - Trigger
 - Custom Events
 
-**jQuery Plugins**
+#### jQuery Plugins
 
 - jQuery Plugins
 - Declaring a jQuery Plugin
@@ -89,9 +85,9 @@ Content is [here](http://courseware.codeschool.com.s3.amazonaws.com/jquery-part2
 - External Triggers
 - Internal Triggers
 
-###6. Promises
+### 6. Promises
 
-**Promises**
+#### Promises
 
 - Promises
 - Reusable AJAX
@@ -101,6 +97,3 @@ Content is [here](http://courseware.codeschool.com.s3.amazonaws.com/jquery-part2
 - Promising Errors
 - Fail()
 - When() and Then()
-
-
-

@@ -1,16 +1,11 @@
-#Real-Time Web with Node.js
+# Real-Time Web with Node.js
 
-##[Code School](http://www.codeschool.com)
+[Code School](http://www.codeschool.com)  - Real-Time Web with Node.js by [Gregg Pollack](https://twitter.com/greggpollack) & [Carlos Souza](https://twitter.com/caike).
+You can get the slides [here](http://courseware.codeschool.com/real-time-web-with-node-js/all-levels.pdf).
 
-by [Gregg Pollack](https://twitter.com/greggpollack) & [Carlos Souza](https://twitter.com/caike).
+## Overview
 
-
-## Course Slides
-
-Content is [here](http://courseware.codeschool.com/real-time-web-with-node-js/all-levels.pdf)
-
-
-###1. Intro to Node.js
+### 1. Intro to Node.js
 
 - 1.1 Intro to Node.js
 - 1.2 Hello You
@@ -22,7 +17,7 @@ Content is [here](http://courseware.codeschool.com/real-time-web-with-node-js/al
 - 1.8 Response End
 
    
-###2. Events
+### 2. Events
 
 - 2.1 Events
 - 2.2 Chat Emitter
@@ -32,7 +27,7 @@ Content is [here](http://courseware.codeschool.com/real-time-web-with-node-js/al
 - 2.6 Listening for Close
  
  
-###3. Streams
+### 3. Streams
 
 - 3.1 Streams
 - 3.2 File Read Stream
@@ -41,7 +36,7 @@ Content is [here](http://courseware.codeschool.com/real-time-web-with-node-js/al
 - 3.5 Download Server
 
 
-###4. Modules
+### 4. Modules
 
 - 4.1 Modules
 - 4.2 Missing Exports
@@ -53,7 +48,7 @@ Content is [here](http://courseware.codeschool.com/real-time-web-with-node-js/al
 - 4.8 Semantic Versioning
  
  
-###5. Express
+### 5. Express
 
 - 5.1 Express
 - 5.2 Express Routes
@@ -63,7 +58,7 @@ Content is [here](http://courseware.codeschool.com/real-time-web-with-node-js/al
 - 5.6 Doing the Request
 - 5.7 Express Server
 
-###6. Socket.io
+### 6. Socket.io
 
 - 6.1 Socket.io
 - 6.2 Setting Up socket.io Server-Side
@@ -74,7 +69,7 @@ Content is [here](http://courseware.codeschool.com/real-time-web-with-node-js/al
 - 6.7 Answering Questions
 - 6.8 Answering Question Client
 
-###7. Persisting Data
+### 7. Persisting Data
 
 - 7.1 Persisting Data
 - 7.2 Simple Redis Commands
