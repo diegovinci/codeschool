@@ -3,12 +3,6 @@
 [Code School](http://www.codeschool.com) - Building Blocks of Express.js by [Carlos Souza](https://twitter.com/caike). 
 You can get the slides [here](http://courseware.codeschool.com/building-blocks-of-express-js/all-levels.pdf).
 
-
-## Running the App
-
-- Install dependencies with npm install.
-- Run app with npm start.
-
 ## Overview
 
 ### 1. First Steps
