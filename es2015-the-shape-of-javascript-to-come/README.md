@@ -5,9 +5,9 @@ You can get the slides [here](http://courseware.codeschool.com/es2015-the-shape-
 
 ## Overview
 
- - 1. Declarations
- - 2. Functions
- - 3. Objects, Strings, and Object.assign
- - 4. Arrays, Maps, and Sets
- - 5. Classes and Modules
- - 6. Promises, Iterators, and Generators
+ - Declarations
+ - Functions
+ - Objects, Strings, and Object.assign
+ - Arrays, Maps, and Sets
+ - Classes and Modules
+ - Promises, Iterators, and Generators

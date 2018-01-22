@@ -5,8 +5,8 @@ You can get the slides [here](http://courseware.codeschool.com/powering-up-with-
 
 ## Overview
 
- - 1. First Component
- - 2. Talk Through Props
- - 3. Component State
- - 4. Synthetic Events
- - 5. Talking to Remote Servers
+ - First Component
+ - Talk Through Props
+ - Component State
+ - Synthetic Events
+ - Talking to Remote Servers
